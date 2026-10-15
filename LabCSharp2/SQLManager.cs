@@ -54,7 +54,7 @@ namespace LabCSharp2
         }
         public static List<string> showKeywords()
         {
-            List<string> keywords;
+            List<string> keywords = new List<string>();
             if (_conn == null)
             {
                 MessageBox.Show("First connect to the database!");
@@ -69,11 +69,15 @@ namespace LabCSharp2
                 {
                     while(reader.Read())
                     {
-                        keywords += reader.GetString(1) + "\n";
+                        keywords.Add(reader.GetString(1));
                     }
                 }
             }
-            MessageBox.Show(keywords);
+            return keywords;
+        }
+        public static void Disconnect()
+        {
+            _conn.Dispose();
         }
     }
 }
