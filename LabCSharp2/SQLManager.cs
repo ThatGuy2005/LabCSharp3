@@ -23,9 +23,11 @@ namespace LabCSharp2
             {
                 _conn = new SQLiteConnection("DataSource = KeyWords.db; Version = 3; ");
                 _conn.Open();
-                string stmt = "CREATE TABLE IF NOT EXISTS Keywords (" +
-                "word TEXT NOT NULL UNIQUE," +
-                "id INTEGER PRIMERY KEY AUTOINCREMENT);";
+                const string stmt =
+                    "CREATE TABLE IF NOT EXISTS Keywords (" +
+                    "    id   INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "    word TEXT NOT NULL UNIQUE" +
+                    ");";
 
                 SQLiteCommand command = new SQLiteCommand(stmt, _conn);
 

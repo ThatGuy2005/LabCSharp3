@@ -34,6 +34,7 @@ namespace LabCSharp2
             databaseOperations.Items.Add("AddKeyword");
             databaseOperations.Items.Add("ViewKeywords");
         }
+        
         private async Task logEvent(string message)
         {
             // I put a \n so that each log entry will have a
@@ -139,6 +140,44 @@ namespace LabCSharp2
                 " selecting 'AddKeyword' and pressing Enter, to keywords, select 'ViewKeywords', then press Enter" +
                 ", then you can disconnect" +
                 " from the database by selecting 'Disconnect' and pressing Enter");
+        }
+
+        private void databaseOperations_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                switch(databaseOperations.Text)
+                {
+                    case "Connect":
+                        SQLManager.connectToDatabase();
+                        break;
+                    case "Disconnect":
+                        SQLManager.Disconnect();
+                        break;
+                    case "ViewKeywords":
+                        string results = "";
+                        List<string> keywords = SQLManager.showKeywords();
+                        foreach(string key in keywords)
+                        {
+                            results += key + "\n";
+                        }
+                        MessageBox.Show(results);
+                        break;
+                    case "AddKeyword":
+                        using (var form = new AddKeyword())
+                        {
+                            DialogResult result = form.ShowDialog(this);
+
+                            if (result == DialogResult.OK)
+                            {
+                                SQLManager.addKeyword(form.Keyword);
+                                MessageBox.Show($"Keyword-ul \"{form.Keyword}\" a fost adăugat.");
+                            }
+                        }
+                        break;
+                }
+                
+            }
         }
     }
 }
