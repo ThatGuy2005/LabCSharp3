@@ -1,0 +1,14 @@
+CREATE TABLE Users (
+FirstName TEXT NOT NULL,
+LastName TEXT NOT NULL,
+CNP TEXT PRIMERY KEY CHECK (length(CNP) = 13 AND CNP NOT GLOB '*[^0-9]*')
+);
+
+INSERT INTO Users (FirstName, LastName, CNP) VALUES
+    ('Andrei', 'Popescu', '1980512260015'),
+    ('Ioana',  'Kovács',  '6050314260029'),
+    ('Mihai',  'Ionescu', '5030930401230');
+	
+SELECT * FROM Users;
+
+DROP TABLE Users;
