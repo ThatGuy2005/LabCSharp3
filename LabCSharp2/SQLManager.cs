@@ -79,7 +79,12 @@ namespace LabCSharp2
         }
         public static void Disconnect()
         {
-            _conn.Dispose();
+            if (_conn != null)
+            {
+                _conn.Close();
+                _conn.Dispose();
+            }
+            
         }
     }
 }
